@@ -1,6 +1,7 @@
 import React from 'react';
 import '../index.css';
 import {createQuestion} from "../mutations/CreateQuestionMutation";
+import {addAnswer} from "../mutations/AddAnswerMutation";
 
 class QuestionInput extends React.Component {
     constructor(props) {
@@ -72,7 +73,11 @@ class QuestionInput extends React.Component {
         const answers = this.state.answers;
         console.log(question)
         let response = await createQuestion(question)
-        console.log(response)
+        let qid = response.createQuestion._id
+        console.log(qid)
+        answers.map(answer => (
+            addAnswer(qid, answer)
+        ))
     }
 }
 
