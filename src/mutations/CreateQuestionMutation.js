@@ -20,7 +20,7 @@ export async function createQuestion(title) {
         input: {
             title
         }
-    }
+    };
     return new Promise((resolve, reject) => {
         commitMutation(
             environment,
