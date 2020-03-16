@@ -1,6 +1,6 @@
 import {commitMutation} from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
-
+import environment from "../relay/Enviroment";
 
 const mutation = graphql`
     mutation DeleteQuestionMutation($_id: ID!){
@@ -14,23 +14,27 @@ const mutation = graphql`
     }
 `;
 
-function deleteQuestion(environment, _id,) {
+function deleteQuestion(_id,) {
     const variables = {
-        input: {
-            _id
-        }
-    }
-    return commitMutation(
-        environment,
-        {
-            mutation,
-            variables,
-            onCompleted: (response, errors) => {
-                console.log(repsonse)
-            },
-            onError: err => console.log(err)
-        }
-    );
+        _id
+    };
+    return new Promise((resolve, reject) => {
+        commitMutation(
+            environment,
+            {
+                mutation,
+                variables,
+                onCompleted: (response, errors) => {
+                    console.log(response);
+                    resolve(response)
+                },
+                onError: err => {
+                    console.log(err);
+                    reject(err)
+                }
+            }
+        );
+    });
 }
 
 export default {deleteQuestion};
