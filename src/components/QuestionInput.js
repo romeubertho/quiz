@@ -1,5 +1,6 @@
 import React from 'react';
 import '../index.css';
+import {createQuestion} from "../mutations/CreateQuestionMutation";
 
 class QuestionInput extends React.Component {
     constructor(props) {
@@ -14,9 +15,9 @@ class QuestionInput extends React.Component {
         this.setState({answers: [...this.state.answers, ""]});
     }
 
-    handleQuestionChange(e){
-        this.state.question=e.target.value;
-        this.setState({question:this.state.question});
+    handleQuestionChange(e) {
+        this.state.question = e.target.value;
+        this.setState({question: this.state.question});
     }
 
     handleChange(e, index) {
@@ -40,29 +41,38 @@ class QuestionInput extends React.Component {
                 <h1 className="page-title">New Question</h1>
                 <div className="question_input_form">
                     <hr/>
-                        <input
-                            text="Question Title"
-                            type="text"
-                            ref="question_title"
-                            placeholder="Your tittle here"
-                            onChange={(e)=>this.handleQuestionChange(e)}
-                        />
+                    <input
+                        text="Question Title"
+                        type="text"
+                        ref="question_title"
+                        placeholder="Your tittle here"
+                        onChange={(e) => this.handleQuestionChange(e)}
+                    />
                 </div>
-                    {
-                        this.state.answers.map((answer, index) => {
-                            return (
-                                <div key={index}>
-                                    <input onChange={(e) => this.handleChange(e, index)} value={answer} placeholder={'Answer '+(index+1)}/>
-                                    <button onClick={() => this.handleRemove(index)}>Remove</button>
-                                </div>
-                            )
-                        })
-                    }
-                    <button onClick={(e) => this.addAnswer(e)}>Add Answer</button>
-                    <hr/>
-                    <button onClick={(e) => this.handleSubmit(e)}>Submit</button>
+                {
+                    this.state.answers.map((answer, index) => {
+                        return (
+                            <div key={index}>
+                                <input onChange={(e) => this.handleChange(e, index)} value={answer}
+                                       placeholder={'Answer ' + (index + 1)}/>
+                                <button onClick={() => this.handleRemove(index)}>Remove</button>
+                            </div>
+                        )
+                    })
+                }
+                <button onClick={(e) => this.addAnswer(e)}>Add Answer</button>
+                <hr/>
+                <button onClick={() => this._createQuestion()}>Submit</button>
             </div>
         );
+    }
+
+    async _createQuestion() {
+        const question = this.state.question;
+        const answers = this.state.answers;
+        console.log(question)
+        let response = await createQuestion(question)
+        console.log(response)
     }
 }
 
