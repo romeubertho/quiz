@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import './App.css';
 import Questions from "./components/Questions";
+import QuestionInput from "./components/QuestionInput";
 
 class App extends React.Component {
     render() {
@@ -19,42 +20,20 @@ class App extends React.Component {
                             </Link>
                         </div>
                         <div className="navbar-end">
-                            <Link to="/questions" className="navbar-item">
+                            <Link to="/all" className="navbar-item">
                                 All Questions
                             </Link>
-                            <Link to="/questions" className="navbar-item">
+                            <Link to="/new" className="navbar-item">
                                 New Question
                             </Link>
                         </div>
                     </nav>
                     <Route exact path="/" component={Questions}/>
                     <Route path="/test" component={Questions}/>
-                    <Route path="/questions/" component={Questions}/>
+                    <Route path="/new" component={QuestionInput}/>
                 </div>
             </Router>
         );
     }
 };
-
-// function App2() {
-//     return (
-//         <div className="App">
-//             <header className="App-header">
-//                 <img src={logo} className="App-logo" alt="logo"/>
-//                 <p>
-//                     Edit <code>src/App.js</code> and save to reload.
-//                 </p>
-//                 <a
-//                     className="App-link"
-//                     href="https://reactjs.org"
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                 >
-//                     Learn React
-//                 </a>
-//             </header>
-//         </div>
-//     );
-// }
-
 export default App;
