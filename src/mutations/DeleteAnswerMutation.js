@@ -15,7 +15,7 @@ function deleteAnswer(_id, _qid) {
     const variables = {
         _id,
         _qid
-    }
+    };
     return new Promise((resolve, reject) => {
         commitMutation(
             environment,
