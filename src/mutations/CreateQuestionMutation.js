@@ -1,5 +1,6 @@
 import {commitMutation} from 'react-relay';
 import graphql from 'babel-plugin-relay/macro';
+import environment from "../relay/Enviroment";
 
 
 const mutation = graphql`
@@ -14,23 +15,29 @@ const mutation = graphql`
     }
 `;
 
-export function createQuestion(environment, question,) {
+export async function createQuestion(title) {
     const variables = {
         input: {
-            question
+            title
         }
     }
-    return commitMutation(
-        environment,
-        {
-            mutation,
-            variables,
-            onCompleted: (response, errors) => {
-                console.log(response)
-            },
-            onError: err => console.log(err)
-        }
-    );
+    return new Promise((resolve, reject) => {
+        commitMutation(
+            environment,
+            {
+                mutation,
+                variables,
+                onCompleted: (response, errors) => {
+                    console.log(response);
+                    resolve(response);
+                },
+                onError: err => {
+                    console.log(err);
+                    reject(err)
+                }
+            }
+        );
+    });
 }
 
 export default {createQuestion};
