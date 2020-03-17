@@ -11,7 +11,7 @@ const mutation = graphql`
     }
 `;
 
-function deleteAnswer(_id, _qid) {
+export function deleteAnswer(_id, _qid) {
     const variables = {
         _id,
         _qid
