@@ -1,5 +1,13 @@
 {
   "plugins": [
-    "relay"
+    "relay",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": "css"
+      }
+    ]
   ]
 }
