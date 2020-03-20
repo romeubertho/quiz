@@ -19,6 +19,7 @@ class Question extends React.Component {
     deleteQuestion(id){
         deleteQuestion(id);
         this.setModalVisible(false);
+        window.location.reload(false);
     }
     render() {
         return (
