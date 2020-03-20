@@ -79,8 +79,6 @@ class Edit extends React.Component {
                         })
                     }
                     <button onClick={(e) => this.addAnswer(e)}>Add Answer</button>
-                    <hr/>
-                    <button onClick={() => this._createQuestion()}>Submit</button>
                 </div>
             </Modal>
         );
@@ -106,16 +104,14 @@ class Edit extends React.Component {
         const rm = this.state.to_remove;
         await updateQuestion(this.props.question._id, question);
         answers.map((answer) => {
-            // console.log(answer);
-            Array.isArray(answer) == true ?
-                // console.log(answer):console.log(answer)
+            Array.isArray(answer) === true ?
                 updateAnswer(answer._id, answer.answer) : addAnswer(this.props.question._id, answer);
-
         });
         rm.map((remove) => {
             deleteAnswer(remove._id, this.props.question._id)
         });
         this.setModalVisible(false);
+        window.location.reload(false);
     }
 }
 
