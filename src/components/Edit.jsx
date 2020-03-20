@@ -14,7 +14,8 @@ class Edit extends React.Component {
             modalVisible: props.visible,
             question: props.question.title,
             answers: props.question.answers,
-            to_remove:[]
+            to_remove: [],
+            to_add: []
         }
     }
 
@@ -37,9 +38,6 @@ class Edit extends React.Component {
 
     handleRemove(index) {
         this.state.to_remove.push(this.state.answers[index]);
-        console.log(this.state.to_remove);
-        this.state.answers.splice(index, 1);
-        console.log(this.state.answers);
         this.setState({answers: this.state.answers})
     }
 
@@ -101,17 +99,22 @@ class Edit extends React.Component {
             addAnswer(qid, answer.answer)
         ))
     }
-    async _editQuestion(){
+
+    async _editQuestion() {
         const question = this.state.question;
         const answers = this.state.answers;
         const rm = this.state.to_remove;
-        await updateQuestion(this.props.question._id,question);
-        answers.map((answer)=>{
-            updateAnswer(answer._id,answer);
+        await updateQuestion(this.props.question._id, question);
+        answers.map((answer) => {
+            // console.log(answer);
+            Array.isArray(answer) == true ?
+                // console.log(answer):console.log(answer)
+                updateAnswer(answer._id, answer.answer) : addAnswer(this.props.question._id, answer);
+
         });
-        rm.map((remove)=>{
-            deleteAnswer(remove._id,this.props.question._id)
-        })
+        rm.map((remove) => {
+            deleteAnswer(remove._id, this.props.question._id)
+        });
         this.setModalVisible(false);
     }
 }

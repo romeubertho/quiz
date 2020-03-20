@@ -27,6 +27,7 @@ class QuestionInput extends React.Component {
     }
 
     handleRemove(index) {
+        console.log(this.state.answers)
         this.state.answers.splice(index, 1)
         console.log(this.state.answers)
         this.setState({answers: this.state.answers})
