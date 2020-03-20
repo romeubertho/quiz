@@ -90,6 +90,7 @@ class Input extends React.Component {
             addAnswer(qid, answer)
         ));
         this.setModalVisible(false);
+        window.location.reload(false);
     }
 }
 
