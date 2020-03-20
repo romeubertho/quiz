@@ -14,8 +14,9 @@ const mutation = graphql`
     }
 `;
 
-export function updateQuestion(title) {
+export function updateQuestion(_id,title) {
     const variables = {
+        _id,
         input: {
             title
         }
