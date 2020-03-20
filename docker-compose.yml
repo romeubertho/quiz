@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+
+  react-app:
+
+    container_name: quiz-react
+
+    restart: always
+
+    build: .
+
+    ports:
+
+      - "3000:3000"
+
