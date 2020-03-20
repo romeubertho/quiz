@@ -1,38 +1,33 @@
 import React from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from 'react-router-dom'
 import './App.css';
 import Questions from "./components/Questions";
-import QuestionInput from "./components/QuestionInput";
+import {Breadcrumb, Layout, Menu} from "antd";
+
+const {Header, Content, Footer} = Layout;
 
 class App extends React.Component {
     render() {
         return (
-            <Router>
-                <div>
-                    <nav className="navbar App-header" role="navigation" aria-label="main navigation">
-                        <div className="navbar-brand">
-                            <Link to="/" className="navbar-item">
-                                Questions Manager
-                            </Link>
-                        </div>
-                        <div className="navbar-end">
-                            <Link to="/all" className="navbar-item">
-                                All Questions
-                            </Link>
-                            <Link to="/new" className="navbar-item">
-                                New Question
-                            </Link>
-                        </div>
-                    </nav>
-                    <Route exact path="/" component={Questions}/>
-                    <Route path="/test" component={Questions}/>
-                    <Route path="/new" component={QuestionInput}/>
-                </div>
-            </Router>
+            <Layout>
+                <Header style={{position: 'fixed', zIndex: 1, width: '100%'}}>
+                    {/*<div className="logo"/>*/}
+                    <Menu
+                        theme="dark"
+                        mode="horizontal"
+                        defaultSelectedKeys={['2']}
+                        style={{lineHeight: '64px'}}>
+                        <Menu.Item key="1">New Question</Menu.Item>
+                    </Menu>
+                </Header>
+                <Content className="site-layout" style={{padding: '0 50px', marginTop: 64}}>
+                    <Breadcrumb style={{margin: '16px 0'}}>
+                    </Breadcrumb>
+                    <div className="site-layout-background" style={{padding: 0, minHeight: 380}}>
+                        <Questions/>
+                    </div>
+                </Content>
+                <Footer style={{textAlign: 'center'}}>Question Manager</Footer>
+            </Layout>
         );
     }
 };
