@@ -54,7 +54,11 @@ class Questions extends React.Component {
                                                 <Question question={question} key={question._id}/>
                                             )
                                         }) :
-                                        this.card({_id: 0, title: 'No question yet', answers: []})
+                                        <Question question={{
+                                            title: 'No question',
+                                            _id: 0,
+                                            answers: []
+                                        }} key={0}/>
                                 }
                             </Row>
                         </div>
