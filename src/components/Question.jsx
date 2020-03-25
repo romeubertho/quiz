@@ -9,7 +9,8 @@ class Question extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isModalVisible: false
+            isModalVisible: false,
+            showQuestion: true
         }
     }
 
@@ -20,25 +21,29 @@ class Question extends React.Component {
     deleteQuestion(id) {
         deleteQuestion(id);
         this.setModalVisible(false);
-        window.location.reload(false);
+        this.setState({showQuestion: false});
     }
 
     render() {
         const {question} = this.props;
-        return (
-            <Col key={question._id} span={8} style={{paddingBottom: 24}}>
-                <Card
-                    title={question.title}
-                    bordered={false}
-                    hoverable={true}
-                    actions={[<EditOutlined key='edit' onClick={() => this.setModalVisible(true)}/>,
-                        <DeleteOutlined key='delete' onClick={() => this.deleteQuestion(question._id)}/>]}>
-                    <Answers answers={question.answers}/>
-                </Card>
-                <Edit isVisible={this.state.isModalVisible} setModalVisible={() => this.setModalVisible()}
-                      question={question}/>
-            </Col>
-        )
+        if (this.state.showQuestion) {
+            return (
+                <Col key={question._id} span={8} style={{paddingBottom: 24}}>
+                    <Card
+                        title={question.title}
+                        bordered={false}
+                        hoverable={true}
+                        actions={[<EditOutlined key='edit' onClick={() => this.setModalVisible(true)}/>,
+                            <DeleteOutlined key='delete' onClick={() => this.deleteQuestion(question._id)}/>]}>
+                        <Answers answers={question.answers}/>
+                    </Card>
+                    <Edit isVisible={this.state.isModalVisible} setModalVisible={() => this.setModalVisible()}
+                          question={question}/>
+                </Col>
+            )
+        } else {
+            return null
+        }
     }
 }
 
