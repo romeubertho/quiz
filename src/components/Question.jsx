@@ -9,30 +9,34 @@ class Question extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalVisible: React.createRef(),
-            question:this.props.question,
+            isModalVisible: false
         }
     }
+
     setModalVisible(modalVisible) {
-        this.state.modalVisible.current.setModalVisible(modalVisible)
+        this.setState({isModalVisible: modalVisible})
     }
-    deleteQuestion(id){
+
+    deleteQuestion(id) {
         deleteQuestion(id);
         this.setModalVisible(false);
         window.location.reload(false);
     }
+
     render() {
+        const {question} = this.props;
         return (
-            <Col key={this.state.question._id} span={8} style={{paddingBottom: 24}}>
+            <Col key={question._id} span={8} style={{paddingBottom: 24}}>
                 <Card
-                    title={this.state.question.title}
+                    title={question.title}
                     bordered={false}
                     hoverable={true}
                     actions={[<EditOutlined key='edit' onClick={() => this.setModalVisible(true)}/>,
-                        <DeleteOutlined key='delete' onClick={() => this.deleteQuestion(this.state.question._id)}/>]}>
-                    <Answers answers={this.state.question.answers}/>
-                    <Edit ref={this.state.modalVisible} question={this.state.question}/>
+                        <DeleteOutlined key='delete' onClick={() => this.deleteQuestion(question._id)}/>]}>
+                    <Answers answers={question.answers}/>
                 </Card>
+                <Edit isVisible={this.state.isModalVisible} setModalVisible={() => this.setModalVisible()}
+                      question={question}/>
             </Col>
         )
     }
