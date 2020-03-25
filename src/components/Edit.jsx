@@ -11,16 +11,11 @@ class Edit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalVisible: props.visible,
             question: props.question.title,
             answers: props.question.answers,
             to_remove: [],
             to_add: []
         }
-    }
-
-    setModalVisible(modalVisible) {
-        this.setState({modalVisible: modalVisible})
     }
 
     addAnswer() {
@@ -46,13 +41,14 @@ class Edit extends React.Component {
     }
 
     render() {
+        const {isVisible}=this.props;
         return (
             <Modal
                 title="Edit Question"
                 style={{top: 20}}
-                visible={this.state.modalVisible}
+                visible={isVisible}
                 onOk={() => this._editQuestion()}
-                onCancel={() => this.setModalVisible(false)}>
+                onCancel={() => this.props.setModalVisible(false)}>
 
                 <div className="question_input">
                     {/*<h1 className="page-title">New Question</h1>*/}
@@ -91,7 +87,7 @@ class Edit extends React.Component {
         console.log(answers);
         let response = await createQuestion(question);
         let qid = response.createQuestion._id;
-        this.setModalVisible(false);
+        this.props.setModalVisible(false);
         console.log(qid);
         answers.map(answer => (
             addAnswer(qid, answer.answer)
@@ -110,7 +106,7 @@ class Edit extends React.Component {
         rm.map((remove) => {
             deleteAnswer(remove._id, this.props.question._id)
         });
-        this.setModalVisible(false);
+        this.props.setModalVisible(false);
         window.location.reload(false);
     }
 }
