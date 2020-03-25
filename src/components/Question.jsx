@@ -26,8 +26,9 @@ class Question extends React.Component {
 
     render() {
         const {question} = this.props;
-        if (this.state.showQuestion) {
-            return (
+        const {showQuestion} = this.state;
+        return (
+            showQuestion ?
                 <Col key={question._id} span={8} style={{paddingBottom: 24}}>
                     <Card
                         title={question.title}
@@ -40,10 +41,8 @@ class Question extends React.Component {
                     <Edit isVisible={this.state.isModalVisible} setModalVisible={() => this.setModalVisible()}
                           question={question}/>
                 </Col>
-            )
-        } else {
-            return null
-        }
+                : null
+        )
     }
 }
 
