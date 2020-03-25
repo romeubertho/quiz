@@ -3,19 +3,15 @@ import '../index.css';
 import {createQuestion} from "../mutations/CreateQuestionMutation";
 import {addAnswer} from "../mutations/AddAnswerMutation";
 import {Modal} from "antd";
+import Questions from "./Questions";
 
 class Input extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalVisible: props.visible,
             question: "",
             answers: []
         }
-    }
-
-    setModalVisible(modalVisible) {
-        this.setState({modalVisible: modalVisible})
     }
 
     addAnswer() {
@@ -33,9 +29,9 @@ class Input extends React.Component {
     }
 
     handleRemove(index) {
-        console.log(this.state.answers)
-        this.state.answers.splice(index, 1)
-        console.log(this.state.answers)
+        console.log(this.state.answers);
+        this.state.answers.splice(index, 1);
+        console.log(this.state.answers);
         this.setState({answers: this.state.answers})
     }
 
@@ -44,13 +40,14 @@ class Input extends React.Component {
     }
 
     render() {
+        const {isVisible} = this.props;
         return (
             <Modal
                 title="New Question"
                 style={{top: 20}}
-                visible={this.state.modalVisible}
+                visible={isVisible}
                 onOk={() => this._createQuestion()}
-                onCancel={() => this.setModalVisible(false)}>
+                onCancel={() => this.props.setModalVisible(false)}>
 
                 <div className="question_input">
                     <div className="question_input_form">
@@ -89,7 +86,7 @@ class Input extends React.Component {
         answers.map(answer => (
             addAnswer(qid, answer)
         ));
-        this.setModalVisible(false);
+        this.props.setModalVisible(false);
         window.location.reload(false);
     }
 }
