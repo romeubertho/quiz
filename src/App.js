@@ -10,23 +10,24 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalVisible: React.createRef()
+            isModalVisible: false
         }
     }
+
     setModalVisible(modalVisible) {
-        this.state.modalVisible.current.setModalVisible(modalVisible)
+        this.setState({isModalVisible: modalVisible})
     }
+
     render() {
         return (
             <Layout>
                 <Header style={{position: 'fixed', zIndex: 1, width: '100%'}}>
-                    {/*<div className="logo"/>*/}
                     <Menu
                         theme="dark"
                         mode="horizontal"
                         defaultSelectedKeys={['2']}
                         style={{lineHeight: '64px'}}>
-                        <Menu.Item onClick={() =>this.setModalVisible(true)} key="1">New Question</Menu.Item>
+                        <Menu.Item onClick={() => this.setModalVisible(true)} key="1">New Question</Menu.Item>
                     </Menu>
                 </Header>
                 <Content className="site-layout" style={{padding: '0 50px', marginTop: 64}}>
@@ -34,12 +35,13 @@ class App extends React.Component {
                     </Breadcrumb>
                     <div className="site-layout-background" style={{padding: 0, minHeight: 380}}>
                         <Questions/>
-                        <Input ref={this.state.modalVisible}/>
+                        <Input isVisible={this.state.isModalVisible} setModalVisible={() => this.setModalVisible()}/>
                     </div>
                 </Content>
                 <Footer style={{textAlign: 'center'}}>Question Manager</Footer>
             </Layout>
         );
     }
-};
+}
+
 export default App;
