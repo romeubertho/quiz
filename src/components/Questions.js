@@ -20,17 +20,6 @@ const query = graphql`
 `;
 
 class Questions extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            modalVisible: React.createRef()
-        }
-    }
-
-    setModalVisible(modalVisible) {
-        this.state.modalVisible.current.setModalVisible(modalVisible);
-    }
-
     render() {
         return (
             <QueryRenderer
